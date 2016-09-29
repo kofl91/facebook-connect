@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<!-- Section: Style information -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+<link rel="stylesheet"
+href="https://fonts.googleapis.com/css?family=Allerta+Stencil">
+<style>
+.w3-allerta {
+  font-family: "Allerta Stencil", Sans-serif;
+}
+</style>
+<!-- Section-End: Style information -->
+
+<script src="index.js"></script>
+
+<head>
+  <title>Facebook Login JavaScript Example</title>
+  <meta charset="UTF-8">
+</head>
+
+
+<!-- Section: Displayed Content -->
+<body class="w3-blue w3-text-white">
+
+
+  <header class="w3-container w3-indigo w3-text-white w3-row">
+    <h1 class="w3-center w3-jumbo w3-allerta">
+      Facebook Connect Attribute Display Tool</h1>
+  </header>
+
+<div class="w3-container w3-center w3-text-white">
+  <!--
+    Below we include the Login Button social plugin. This button uses
+    the JavaScript SDK to present a graphical Login button that triggers
+    the FB.login() function when clicked.
+  -->
+  <fb:login-button id="fb-loginbutton" scope="public_profile,email,user_friends,user_posts,user_likes,user_about_me" onlogin="checkLoginState();">
+  </fb:login-button>
+
+  <button id="fb-logoutbutton" class="w3-button w3-indigo">Logout</button>
+
+  <div id="status">
+  </div>
+</div>
+</body>
+<!-- Section-End: Displayed Content -->
+</html>
