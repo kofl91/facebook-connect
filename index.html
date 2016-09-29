@@ -41,9 +41,31 @@ href="https://fonts.googleapis.com/css?family=Allerta+Stencil">
 
   <button id="fb-logoutbutton" class="w3-button w3-indigo">Logout</button>
 
-  <div id="status">
+  <div id="status" class="w3-card-4 w3-row w3-white w3-text-black w3-center">
   </div>
+
+
+<div id="details" style="display:none">
+  <div id="accesstoken" class="w3-card-4 w3-row w3-white w3-text-black w3-center">
+
+    <ul id="accessTokenList" class="w3-ul w3-hoverable">
+      <li>Info 1</li>
+      <li>Info 2</li>
+      <li>Info 3</li>
+    </ul>
+  </div>
+
 </div>
+
+</div>
+
+<script>
+// Only works after `FB.init` is called
+function myFacebookLogin() {
+  FB.login(function(){}, {scope: 'publish_actions'});
+}
+</script>
+<button onclick="myFacebookLogin()">Login with Facebook</button>
 </body>
 <!-- Section-End: Displayed Content -->
 </html>
