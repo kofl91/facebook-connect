@@ -1,71 +1,126 @@
 <!DOCTYPE html>
 <html>
+    <!-- Section: Style information -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/w3.css">
+    <link rel="stylesheet" href="css/w3-theme-red.css">
+    <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
 
-<!-- Section: Style information -->
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
-<link rel="stylesheet"
-href="https://fonts.googleapis.com/css?family=Allerta+Stencil">
-<style>
-.w3-allerta {
-  font-family: "Allerta Stencil", Sans-serif;
-}
-</style>
-<!-- Section-End: Style information -->
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Allerta+Stencil">
+    <style>
+        .w3-allerta {
+            font-family: "Allerta Stencil", Sans-serif;
+        }
+    </style>
+    <script src="js/sdk.js"></script>
+    <script src="js/constants.js"></script>
+    <script src="js/fblogin.js"></script>
+    <script src="js/forge.min.js"></script>
+    
+    <script src="js/home.js"></script>
 
-<script src="index.js"></script>
+    <head>
+        <title>Social Certificate</title>
+        <meta charset="UTF-8">
+    </head>
 
-<head>
-  <title>Facebook Login JavaScript Example</title>
-  <meta charset="UTF-8">
-</head>
+    <body class="w3-theme-l5">
+        <!-- HEADER -->
+        <div class="w3-card w3-theme-d1 w3-center w3-container w3-top w3-padding-16">
+            <h1>Social Certificate</h1>
+        </div>
 
+        <div class = "w3-container w3-padding-64">
+        </div>
 
-<!-- Section: Displayed Content -->
-<body class="w3-blue w3-text-white">
+        <!-- NAVMENU -->
+        <nav class="w3-sidenav w3-theme-l2" style="width:10%" id="mySidenav">
 
+            <a href="#"><i class="fa fa-facebook-official" aria-hidden="true"></i> <div class="fb-login-button" data-max-rows="1" data-size="medium" data-show-faces="false" data-auto-logout-link="true" onlogin="checkLoginState();"></div></a> 
+            <a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i> Login Google</a> 
+            <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i> Login Twitter</a> 
+        </nav>
 
-  <header class="w3-container w3-indigo w3-text-white w3-row">
-    <h1 class="w3-center w3-jumbo w3-allerta">
-      Facebook Connect Attribute Display Tool</h1>
-  </header>
+        <!-- BODY -->
+        <div class = "w3-container " style="margin-left:10%">
 
-<div class="w3-container w3-center w3-text-white">
-  <!--
-    Below we include the Login Button social plugin. This button uses
-    the JavaScript SDK to present a graphical Login button that triggers
-    the FB.login() function when clicked.
-  -->
-  <fb:login-button id="fb-loginbutton" scope="public_profile,email,user_friends,user_posts,user_likes,user_about_me" onlogin="checkLoginState();">
-  </fb:login-button>
+            <div id="introPanel" class="w3-panel w3-theme-l2 w3-center w3-padding-64">
+                <h2>Social Certificate</h2>
+                Welcome to Social Certificate. Here you can create a SSL-Certificate by simply login into your social-media-account. You can use either Facebook, Google, Twitter or even create a combined certificate.
+            </div>
 
-  <button id="fb-logoutbutton" class="w3-button w3-indigo">Logout</button>
+            <div id="fbDetailPanel" class="w3-panel w3-theme-l2 w3-center w3-padding-64" style="display:none">
+                <h2>Here you can see the details of your Facebook-Login</h2>
+                Scroll further down to generate a certificate.
+                <div class="w3-responsive">
+                    <table id="fbDetailTable" class="w3-table-all w3-hoverable">
+                        <thead>
+                            <tr class="w3-light-grey">
+                                <th>Field</th>
+                                <th>Value</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
 
-  <div id="status" class="w3-card-4 w3-row w3-white w3-text-black w3-center">
-  </div>
+            
+             <div id="csrPanel" class="w3-panel w3-theme-l2 w3-center w3-padding-64" style="display:none">
+                <h2>Generate Keypair and CSR</h2>
+                <div class="w3-container w3-padding-16">
+                    <label class="w3-label">CSR:</label>
+                    <br>
+                    <textarea class="w3-input w3-border" id="csrTextarea" rows="5" cols="80" disabled>
+                    </textarea>
+                    <br>
+                    <label class="w3-label">Certificate:</label>
+                    <br>
+                    <textarea class="w3-input w3-border" id="certTextarea" rows="5" cols="80" disabled>
+                    </textarea>
+                    <br>
+                    <label class="w3-label">Private Key:</label>
+                    <br>
+                    <textarea class="w3-input w3-border" id="privateKeyTextarea" rows="5" cols="80" disabled="">
+                    </textarea>
+                    <br>
+                </div>
+                <button id="genCsrButton" class="w3-margin-button w3-btn w3-theme-d3">Generate CSR</button>
+            </div>
+            
+            <div id="keyPanel" class="w3-panel w3-theme-l2 w3-center w3-padding-64" style="display:none">
+                <h2>Generate and download your certificate and private key</h2>
+                <div class="w3-container w3-padding-16">
+                    <label class="w3-label">Certificate:</label>
+                    <br>
+                    <textarea class="w3-input w3-border" id="certTextarea2" rows="5" cols="80" disabled>
+                    </textarea>
+                    <br>
+                    <label class="w3-label">Private Key:</label>
+                    <br>
+                    <textarea class="w3-input w3-border" id="privateKeyTextarea" rows="5" cols="80" disabled="">
+                    </textarea>
+                    <br>
+                </div>
+                <button id="genCertButton" class="w3-margin-button w3-btn w3-theme-d3">Generate Certificate</button>
+            </div>
 
-
-<div id="details" style="display:none">
-  <div id="accesstoken" class="w3-card-4 w3-row w3-white w3-text-black w3-center">
-
-    <ul id="accessTokenList" class="w3-ul w3-hoverable">
-      <li>Info 1</li>
-      <li>Info 2</li>
-      <li>Info 3</li>
-    </ul>
-  </div>
-
-</div>
-
-</div>
-
-<script>
-// Only works after `FB.init` is called
-function myFacebookLogin() {
-  FB.login(function(){}, {scope: 'publish_actions'});
-}
-</script>
-<button onclick="myFacebookLogin()">Login with Facebook</button>
-</body>
-<!-- Section-End: Displayed Content -->
+            <div id="certDetailPanel" class="w3-panel w3-theme-l2 w3-center w3-padding-64" style="display:none">
+                <h2>Here you can see the details of your certificate</h2>
+                <div class="w3-responsive w3-padding-16">
+                    <table id="certDetailTable" class="w3-table-all w3-hoverable">
+                        <thead>
+                            <tr class="w3-light-grey">
+                                <th>Field</th>
+                                <th>Value</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+                <button id="downloadCertButton" class="w3-margin-button w3-btn w3-theme-d3">Download</button>
+            </div>
+        </div>
+    </body>
 </html>
